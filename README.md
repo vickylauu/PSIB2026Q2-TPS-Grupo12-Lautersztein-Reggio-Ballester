@@ -43,6 +43,6 @@ En la ejecución local, la descarga usa `wget`; si no está disponible, bajar la
 | Módulo | Contenido | Estado |
 |---|---|---|
 | 1 | Contextualización, verificación del preprocesamiento y segmentación en épocas | Hecho |
-| 2 | Análisis de ritmos cerebrales (PSD: Welch, periodograma, Blackman-Tukey, AR) | Código listo, a correr en Colab con datos reales para completar conclusiones |
+| 2 | Análisis de ritmos cerebrales (PSD: Welch, periodograma, Blackman-Tukey, AR) | Hecho |
 | 3 | Mapas topográficos y análisis estadístico | Pendiente |
 | 4 | Análisis de sensibilidad metodológica | Pendiente |
