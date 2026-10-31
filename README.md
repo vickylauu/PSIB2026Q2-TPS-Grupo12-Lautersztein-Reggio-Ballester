@@ -20,8 +20,9 @@ Los datos **no se incluyen en el repositorio**. El primer notebook los descarga 
 
 ```
 notebooks/
-  01_contextualizacion_preprocesamiento.ipynb   Módulo 1: contextualización, verificación de filtros y segmentación en épocas
-requirements.txt                                Dependencias
+  01_contextualizacion_preprocesamiento.ipynb  Módulo 1: contextualización, verificación de filtros y segmentación en épocas
+  02_ritmos_cerebrales.ipynb                   Módulo 2: análisis espectral (PSD) y potencia por banda
+requirements.txt                               Dependencias
 ```
 
 ## Instalación y ejecución
@@ -42,6 +43,6 @@ En la ejecución local, la descarga usa `wget`; si no está disponible, bajar la
 | Módulo | Contenido | Estado |
 |---|---|---|
 | 1 | Contextualización, verificación del preprocesamiento y segmentación en épocas | Hecho |
-| 2 | Análisis de ritmos cerebrales (PSD: Welch, periodograma, Blackman-Tukey, AR) | Pendiente |
+| 2 | Análisis de ritmos cerebrales (PSD: Welch, periodograma, Blackman-Tukey, AR) | Código listo, a correr en Colab con datos reales para completar conclusiones |
 | 3 | Mapas topográficos y análisis estadístico | Pendiente |
 | 4 | Análisis de sensibilidad metodológica | Pendiente |
