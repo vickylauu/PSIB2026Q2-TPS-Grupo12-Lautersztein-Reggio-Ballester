@@ -40,29 +40,72 @@ Comparación de los métodos de estimación espectral (Welch, periodograma, Blac
 
 ## Herramientas utilizadas
 
-- **Lenguaje:** Python 3
-- **Procesamiento y análisis:** NumPy, SciPy, Pandas
+- **Lenguaje:** Python 3.10 o superior
+- **Procesamiento y análisis:** NumPy, SciPy, pandas
 - **Visualización:** Matplotlib, MNE-Python
 - **Estadística:** SciPy, statsmodels
 - **Entorno de desarrollo:** Google Colab
 
 ## Base de datos
 
-Zyma et al. (2018). *EEG During Mental Arithmetic Tasks*. PhysioNet.
+Zyma et al. (2018). *EEG During Mental Arithmetic Tasks* v1.0.0. PhysioNet. **DOI:** https://doi.org/10.13026/C2JQ1P
 
-**DOI:** https://doi.org/10.13026/C2JQ1P
+36 sujetos, 19 canales del sistema 10-20, 500 Hz; un registro de reposo (`SubjectNN_1.edf`) y uno de cálculo mental (`SubjectNN_2.edf`) por sujeto. Según `subject-info.csv`, 26 sujetos tienen buen desempeño (grupo G) y 10 bajo (grupo B).
 
-## Autoras
+Los datos **no se incluyen en el repositorio**: el notebook 01 los descarga automáticamente de PhysioNet en la carpeta `eegmat/`.
 
-- Victoria Lautersztein
-- María Reggio
-- Rosario Ballester
+## Archivos
 
-**Instituto Tecnológico de Buenos Aires (ITBA) — 2026**
+```
+notebooks/
+  01_contextualizacion_preprocesamiento.ipynb  Módulo 1: contextualización, verificación de filtros, diseño FIR/IIR y épocas
+  02_ritmos_cerebrales.ipynb                   Módulo 2: PSD con 4 estimadores y potencia por banda
+  03_mapas_estadistica.ipynb                   Módulo 3: índices θ/α y θ/β, mapas topográficos, Wilcoxon y Mann-Whitney con FDR
+  04_sensibilidad_metodologica.ipynb           Módulo 4: sensibilidad de los resultados al estimador, a las épocas marcadas,
+                                               al denominador de la potencia relativa y a la duración de época
+requirements.txt                               Dependencias
+```
+
+Los notebooks se suben **ejecutados**, así que los resultados se pueden ver sin correrlos.
+
+## Flujo de datos entre notebooks
+
+| Notebook | Lee | Genera |
+|---|---|---|
+| 01 | `eegmat/*.edf`, `eegmat/subject-info.csv` | `modulo1_epocas.npz`, `modulo1_sujetos.csv` |
+| 02 | `modulo1_epocas.npz`, `modulo1_sujetos.csv` | `modulo2_potencias.csv` |
+| 03 | `modulo2_potencias.csv`, `modulo1_sujetos.csv` | `modulo3_metricas.csv`, `modulo3_diferencias.csv`, `modulo3_wilcoxon.csv`, `modulo3_wilcoxon_regiones.csv`, `modulo3_mannwhitney.csv` |
+| 04 | `modulo1_epocas.npz`, `modulo1_sujetos.csv`, `modulo2_potencias.csv` (y, si están, los CSV estadísticos del 03) | `modulo4_*.csv` (potencias por método, pruebas por método y controles de robustez) |
+
+## Instalación y ejecución
+
+**Opción 1: Google Colab (recomendada).** Abrir los notebooks y correrlos **en orden (01 → 02 → 03 → 04) y en la misma sesión** (Entorno de ejecución → Ejecutar todas en cada uno). La primera celda del 01 instala MNE y descarga la base (~180 MB). Los archivos intermedios se borran al cerrar la sesión: para conservarlos, montar Google Drive y trabajar en una carpeta de Drive, o subir a mano los archivos que pide cada notebook (el 04 los pide con un diálogo de carga si faltan).
+
+**Opción 2: local**, con Python 3.10 o superior:
+
+```bash
+pip install -r requirements.txt
+cd notebooks
+jupyter notebook
+```
+
+y ejecutar 01 → 02 → 03 → 04. La descarga usa `wget`; si no está disponible (por ejemplo, en macOS), bajar la base desde https://physionet.org/content/eegmat/1.0.0/ y descomprimirla en `notebooks/eegmat/`.
+
+Tiempo aproximado: 01 ≈ 1 min (más la descarga), 02 ≈ 10 s, 03 ≈ 10 s, 04 ≈ 20 s.
+
+## Estado
 
 | Módulo | Contenido | Estado |
 |---|---|---|
 | 1 | Contextualización, verificación del preprocesamiento, diseño de filtros y segmentación en épocas | Hecho |
 | 2 | Análisis de ritmos cerebrales (PSD: periodograma, Welch, Blackman-Tukey, AR) y potencia por banda | Hecho |
 | 3 | Mapas topográficos y análisis estadístico | Hecho |
-| 4 | Análisis de sensibilidad metodológica | Pendiente |
+| 4 | Análisis de sensibilidad metodológica | Hecho |
+
+## Autoras
+
+- Victoria Lautersztein (62437)
+- María Reggio (62303)
+- Rosario Ballester (62648)
+
+**Instituto Tecnológico de Buenos Aires (ITBA) — 2026**
