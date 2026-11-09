@@ -6,58 +6,59 @@
 
 Integrantes: Victoria Lautersztein (62437), María Reggio (62303), Rosario Ballester (62648)
 
-## Descripción
+## Descripción del proyecto
 
-Análisis espectral del EEG para cuantificar los cambios en los ritmos cerebrales (delta, theta, alfa, beta) entre reposo y cálculo mental, por región del cuero cabelludo, y evaluar su significancia estadística y su relación con el desempeño en la tarea. Como objetivo secundario, se estudia cuánto dependen los resultados del filtro y del estimador de la PSD elegidos.
+Este proyecto tiene como objetivo caracterizar las variaciones en la actividad cerebral asociadas a la carga cognitiva mediante el análisis espectral de señales de electroencefalografía (EEG).
 
-## Datos
+Se utiliza la base de datos [EEG During Mental Arithmetic Tasks](https://doi.org/10.13026/C2JQ1P) de PhysioNet, que contiene registros de 36 participantes durante dos condiciones experimentales: reposo con ojos cerrados y realización de cálculos mentales.
 
-*EEG During Mental Arithmetic Tasks* v1.0.0 (Zyma et al., PhysioNet, doi:10.13026/C2JQ1P): 36 sujetos, 19 canales del sistema 10-20, 500 Hz, un registro de reposo (`SubjectNN_1.edf`) y uno de cálculo mental (`SubjectNN_2.edf`) por sujeto. Según `subject-info.csv`, 26 sujetos tienen buen desempeño (grupo G) y 10 bajo (grupo B).
+El análisis se centra en las variaciones de potencia de los ritmos cerebrales delta, theta, alfa y beta, su distribución espacial y su posible relación con el desempeño durante la tarea.
 
-Los datos **no se incluyen en el repositorio**. El primer notebook los descarga automáticamente de PhysioNet en la carpeta `eegmat/`.
+## Objetivos
 
-## Estructura
+- Cuantificar las diferencias de potencia espectral entre reposo y cálculo mental.
+- Analizar la potencia absoluta y relativa de las bandas de frecuencia y los índices theta/alfa y theta/beta.
+- Caracterizar la distribución regional de los cambios mediante mapas topográficos.
+- Evaluar la significancia estadística de las diferencias intra-sujeto y entre grupos de desempeño.
+- Analizar la influencia del preprocesamiento y los métodos de estimación espectral sobre los resultados.
 
-```
-notebooks/
-  01_contextualizacion_preprocesamiento.ipynb  Módulo 1: contextualización, verificación de los filtros de la base,
-                                               diseño de filtros FIR/IIR y segmentación en épocas
-  02_ritmos_cerebrales.ipynb                   Módulo 2: PSD con 4 estimadores (periodograma, Welch, Blackman-Tukey,
-                                               AR con orden por AIC) y potencia por banda
-  03_mapas_estadistica.ipynb                   Módulo 3: índices θ/α y θ/β, mapas topográficos, Wilcoxon (por
-                                               electrodo y región), Mann-Whitney G vs. B y corrección FDR
-requirements.txt                               Dependencias
-```
+## Estructura del proyecto
 
-Los notebooks se suben **ejecutados**, así que los resultados se pueden ver sin correrlos.
+El procesamiento se organiza en cuatro módulos:
 
-## Flujo de datos entre notebooks
+### Módulo 1 — Contextualización y preprocesamiento
+Caracterización de los registros EEG, verificación espectral del preprocesamiento original, evaluación exploratoria de la calidad de las señales y segmentación temporal.
 
-Cada módulo guarda su salida en la carpeta de trabajo y el siguiente la lee:
+### Módulo 2 — Análisis de ritmos cerebrales
+Estimación de la densidad espectral de potencia (PSD), cálculo de potencias absolutas y relativas por banda y obtención de los índices theta/alfa y theta/beta.
 
-| Notebook | Lee | Genera |
-|---|---|---|
-| 01 | `eegmat/*.edf`, `eegmat/subject-info.csv` | `modulo1_epocas.npz` (épocas de 4 s y marca de atípicas), `modulo1_sujetos.csv` |
-| 02 | `modulo1_epocas.npz`, `modulo1_sujetos.csv` | `modulo2_potencias.csv` (potencia por sujeto, condición, canal y banda) |
-| 03 | `modulo2_potencias.csv`, `modulo1_sujetos.csv` | `modulo3_metricas.csv`, `modulo3_diferencias.csv` (métricas y cambio tarea − reposo), `modulo3_wilcoxon.csv`, `modulo3_wilcoxon_regiones.csv`, `modulo3_mannwhitney.csv` (resultados de los tests) |
+### Módulo 3 — Mapas topográficos y análisis estadístico
+Visualización espacial de las variaciones espectrales, análisis regional y comparaciones estadísticas mediante las pruebas de Wilcoxon y Mann-Whitney, con corrección FDR y tamaños de efecto.
 
-## Instalación y ejecución
+### Módulo 4 — Análisis de sensibilidad metodológica
+Comparación de los métodos de estimación espectral (Welch, periodograma, Blackman-Tukey y modelos autorregresivos) y evaluación de su influencia sobre las características espectrales y los resultados estadísticos.
 
-**Opción 1: Google Colab (recomendada).** Correr los notebooks **en orden y en la misma sesión** (Entorno de ejecución → Ejecutar todas en cada uno). La primera celda del notebook 01 instala MNE y descarga la base (~180 MB). Los archivos intermedios se borran al cerrar la sesión de Colab: para conservarlos, montar Google Drive y trabajar en una carpeta de Drive, o subir a mano los archivos que pide cada notebook.
+## Herramientas utilizadas
 
-**Opción 2: local**, con Python 3.10 o superior:
+- **Lenguaje:** Python 3
+- **Procesamiento y análisis:** NumPy, SciPy, Pandas
+- **Visualización:** Matplotlib, MNE-Python
+- **Estadística:** SciPy, statsmodels
+- **Entorno de desarrollo:** Google Colab
 
-```bash
-pip install -r requirements.txt
-cd notebooks
-jupyter notebook
-```
+## Base de datos
 
-y ejecutar 01 → 02 → 03 en orden. La descarga usa `wget`; si no está disponible (por ejemplo, en macOS), bajar la base desde https://physionet.org/content/eegmat/1.0.0/ y descomprimirla en `notebooks/eegmat/`.
+Zyma et al. (2018). *EEG During Mental Arithmetic Tasks*. PhysioNet.
 
-Tiempo aproximado: 01 ≈ 1 min (más la descarga), 02 ≈ 15 s, 03 ≈ 30 s.
+**DOI:** https://doi.org/10.13026/C2JQ1P
 
-## Estado
+## Autoras
+
+- Victoria Lautersztein
+- María Reggio
+- Rosario Ballester
+
+**Instituto Tecnológico de Buenos Aires (ITBA) — 2026**
 
 | Módulo | Contenido | Estado |
 |---|---|---|
