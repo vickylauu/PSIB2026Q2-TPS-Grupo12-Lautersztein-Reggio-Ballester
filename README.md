@@ -81,27 +81,6 @@ Los notebooks se suben **ejecutados**, así que los resultados se pueden ver sin
 
 **Opción 1: Google Colab (recomendada).** Abrir los notebooks y correrlos **en orden (01 → 02 → 03 → 04) y en la misma sesión** (Entorno de ejecución → Ejecutar todas en cada uno). La primera celda del 01 instala MNE y descarga la base (~180 MB). Los archivos intermedios se borran al cerrar la sesión: para conservarlos, montar Google Drive y trabajar en una carpeta de Drive, o subir a mano los archivos que pide cada notebook (el 04 los pide con un diálogo de carga si faltan).
 
-**Opción 2: local**, con Python 3.10 o superior:
-
-```bash
-pip install -r requirements.txt
-cd notebooks
-jupyter notebook
-```
-
-y ejecutar 01 → 02 → 03 → 04. La descarga usa `wget`; si no está disponible (por ejemplo, en macOS), bajar la base desde https://physionet.org/content/eegmat/1.0.0/ y descomprimirla en `notebooks/eegmat/`.
-
-Tiempo aproximado: 01 ≈ 1 min (más la descarga), 02 ≈ 10 s, 03 ≈ 10 s, 04 ≈ 20 s.
-
-## Estado
-
-| Módulo | Contenido | Estado |
-|---|---|---|
-| 1 | Contextualización, verificación del preprocesamiento, diseño de filtros y segmentación en épocas | Hecho |
-| 2 | Análisis de ritmos cerebrales (PSD: periodograma, Welch, Blackman-Tukey, AR) y potencia por banda | Hecho |
-| 3 | Mapas topográficos y análisis estadístico | Hecho |
-| 4 | Análisis de sensibilidad metodológica | Hecho |
-
 ## Autoras
 
 - Victoria Lautersztein (62437)
