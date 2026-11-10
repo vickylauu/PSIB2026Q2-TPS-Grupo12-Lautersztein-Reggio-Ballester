@@ -79,7 +79,32 @@ Los notebooks se suben **ejecutados**, así que los resultados se pueden ver sin
 
 ## Instalación y ejecución
 
-**Opción 1: Google Colab (recomendada).** Abrir los notebooks y correrlos **en orden (01 → 02 → 03 → 04) y en la misma sesión** (Entorno de ejecución → Ejecutar todas en cada uno). La primera celda del 01 instala MNE y descarga la base (~180 MB). Los archivos intermedios se borran al cerrar la sesión: para conservarlos, montar Google Drive y trabajar en una carpeta de Drive, o subir a mano los archivos que pide cada notebook (el 04 los pide con un diálogo de carga si faltan).
+El proyecto está desarrollado en Python 3 y organizado en cuatro notebooks que deben ejecutarse secuencialmente.
+
+### Dependencias
+
+Las bibliotecas necesarias se encuentran especificadas en el archivo `requirements.txt`.
+
+Para ejecutar el proyecto localmente, clonar el repositorio e instalar las dependencias:
+
+```bash
+git clone https://github.com/vickylauu/PSIB2026Q2-TPS-Grupo12-Lautersztein-Reggio-Ballester.git
+cd PSIB2026Q2-TPS-Grupo12-Lautersztein-Reggio-Ballester
+pip install -r requirements.txt
+```
+
+### Ejecución en Google Colab
+
+1. Abrir los notebooks desde la carpeta `notebooks/` en Google Colab.
+2. Ejecutarlos en orden, desde el Módulo 1 hasta el Módulo 4.
+3. Cargar los archivos solicitados por cada notebook cuando corresponda.
+4. Conservar los archivos generados por cada módulo, ya que se utilizan como entrada en los siguientes.
+
+### Ejecución local
+
+Los notebooks también pueden abrirse mediante Jupyter Notebook o JupyterLab, siempre que se encuentren instaladas las dependencias correspondientes.
+
+Para ejecutar localmente, se deben disponer de los archivos de entrada y adaptar las celdas de carga específicas de Google Colab cuando sea necesario.
 
 ## Autoras
 
