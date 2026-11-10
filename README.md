@@ -61,8 +61,8 @@ notebooks/
   01_contextualizacion_preprocesamiento.ipynb  Módulo 1: contextualización, verificación de filtros, diseño FIR/IIR y épocas
   02_ritmos_cerebrales.ipynb                   Módulo 2: PSD con 4 estimadores y potencia por banda
   03_mapas_estadistica.ipynb                   Módulo 3: índices θ/α y θ/β, mapas topográficos, Wilcoxon y Mann-Whitney con FDR
-  04_sensibilidad_metodologica.ipynb           Módulo 4: sensibilidad de los resultados al estimador, a las épocas marcadas,
-                                               al denominador de la potencia relativa y a la duración de época
+  04_sensibilidad_metodologica.ipynb           Módulo 4: sensibilidad de los resultados al estimador, al filtrado FIR/IIR,
+                                               a las épocas marcadas, al denominador de la potencia relativa y a la duración de época
 requirements.txt                               Dependencias
 ```
 
